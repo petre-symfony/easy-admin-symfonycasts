@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserCrudController extends AbstractCrudController {
 	public static function getEntityFqcn(): string {
@@ -32,7 +33,12 @@ class UserCrudController extends AbstractCrudController {
 			->renderAsSwitch(false);
 		yield DateField::new('createdAt')
 			->hideOnForm();
+		$roles = ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER'];
 		yield ArrayField::new('roles')
-			->setHelp('Available roles: ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_MODERATOR, ROLE_USER');;
+			->setHelp('Available roles: ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_MODERATOR, ROLE_USER')
+			->setFormType(ChoiceType::class)
+			->setFormTypeOptions([
+				'choices' => array_combine($roles, $roles)
+			]);
 	}
 }
