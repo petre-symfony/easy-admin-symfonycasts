@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -22,6 +23,8 @@ class UserCrudController extends AbstractCrudController {
 		yield EmailField::new('email');
 		yield TextField::new('fullName')
 			->hideOnForm();
+		yield Field::new('firstName');
+		yield Field::new('lastName');
 		yield BooleanField::new('enabled')
 			->renderAsSwitch(false);
 		yield DateField::new('createdAt');
