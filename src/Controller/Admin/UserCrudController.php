@@ -32,6 +32,7 @@ class UserCrudController extends AbstractCrudController {
 			->renderAsSwitch(false);
 		yield DateField::new('createdAt')
 			->hideOnForm();
-		yield ArrayField::new('roles');
+		yield ArrayField::new('roles')
+			->setHelp('Available roles: ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_MODERATOR, ROLE_USER');;
 	}
 }
