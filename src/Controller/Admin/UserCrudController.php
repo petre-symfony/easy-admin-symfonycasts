@@ -21,7 +21,7 @@ class UserCrudController extends AbstractCrudController {
 			->onlyOnIndex();
 		yield EmailField::new('email');
 		yield TextField::new('fullName')
-			->onlyOnIndex();
+			->hideOnForm();
 		yield BooleanField::new('enabled')
 			->renderAsSwitch(false);
 		yield DateField::new('createdAt');
