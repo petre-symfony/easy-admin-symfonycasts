@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Question;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -32,6 +33,10 @@ class QuestionCrudController extends AbstractCrudController {
 				}
 
 				return sprintf('%s&nbsp;(%s)', $user->getEmail(), $user->getQuestions()->count());
+			})
+			->setQueryBuilder(function(QueryBuilder $queryBuilder){
+				$queryBuilder->andWhere('entity.enabled = :enabled')
+					->setParameter('enabled', true);
 			});
 		yield Field::new('createdAt')
 			->hideOnForm();
