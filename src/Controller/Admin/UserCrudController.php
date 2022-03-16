@@ -29,10 +29,6 @@ class UserCrudController extends AbstractCrudController {
 			->formatValue(static function($value, User $user) {
 				return $user->getAvatarUrl();
 			});
-		yield ImageField::new('avatar')
-			->setBasePath('uploads/avatars')
-			->setUploadDir('public/uploads/avatars')
-			->setUploadedFileNamePattern('[slug]-[timestamp].[extension]');
 		yield EmailField::new('email');
 		yield TextField::new('fullName')
 			->hideOnForm();
