@@ -24,6 +24,7 @@ class QuestionCrudController extends AbstractCrudController {
 			->hideOnIndex();
 		yield Field::new('votes', 'Total Votes')
 			->setTextAlign('right');
+		yield AssociationField::new('askedBy');
 		yield Field::new('createdAt')
 			->hideOnForm();
 	}
