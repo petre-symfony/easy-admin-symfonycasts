@@ -39,7 +39,8 @@ class QuestionCrudController extends AbstractCrudController {
 					->setParameter('enabled', true);
 			});
 		yield AssociationField::new('answers')
-			->setFormTypeOption('choice_label', 'id');
+			->setFormTypeOption('choice_label', 'id')
+			->setFormTypeOption('by_reference', false);
 		yield Field::new('createdAt')
 			->hideOnForm();
 	}
