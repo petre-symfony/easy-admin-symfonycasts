@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -23,6 +24,7 @@ class UserCrudController extends AbstractCrudController {
 	public function configureFields(string $pageName): iterable {
 		yield IdField::new('id')
 			->onlyOnIndex();
+		yield ImageField::new('avatar');
 		yield EmailField::new('email');
 		yield TextField::new('fullName')
 			->hideOnForm();
