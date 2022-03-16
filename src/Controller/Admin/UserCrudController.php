@@ -25,7 +25,10 @@ class UserCrudController extends AbstractCrudController {
 	public function configureFields(string $pageName): iterable {
 		yield IdField::new('id')
 			->onlyOnIndex();
-		yield AvatarField::new('avatar');
+		yield AvatarField::new('avatar')
+			->formatValue(static function($value, User $user) {
+				return $user->getAvatarUrl();
+			});
 		yield ImageField::new('avatar')
 			->setBasePath('uploads/avatars')
 			->setUploadDir('public/uploads/avatars')
