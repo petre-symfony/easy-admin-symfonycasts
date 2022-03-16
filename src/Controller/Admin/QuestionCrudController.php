@@ -40,7 +40,6 @@ class QuestionCrudController extends AbstractCrudController {
 			});
 		yield AssociationField::new('answers')
 			->autocomplete()
-			->setFormTypeOption('choice_label', 'id')
 			->setFormTypeOption('by_reference', false);
 		yield Field::new('createdAt')
 			->hideOnForm();
