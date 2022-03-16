@@ -25,7 +25,8 @@ class UserCrudController extends AbstractCrudController {
 		yield IdField::new('id')
 			->onlyOnIndex();
 		yield ImageField::new('avatar')
-			->setBasePath('uploads/avatars');
+			->setBasePath('uploads/avatars')
+			->setUploadDir('public/uploads/avatars');
 		yield EmailField::new('email');
 		yield TextField::new('fullName')
 			->hideOnForm();
