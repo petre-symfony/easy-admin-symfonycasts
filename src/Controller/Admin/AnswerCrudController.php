@@ -19,8 +19,7 @@ class AnswerCrudController extends AbstractCrudController {
 	public function configureFields(string $pageName): iterable {
 		yield IdField::new('id')
 			->onlyOnIndex();
-		yield TextField::new('answer')
-			->setMaxLength(50);
+		yield Field::new('answer');
 		yield IntegerField::new('votes');
 		yield AssociationField::new('question')
 			->hideOnIndex();
