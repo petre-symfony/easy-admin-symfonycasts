@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Question;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -20,7 +21,11 @@ class QuestionCrudController extends AbstractCrudController {
 		yield IdField::new('id')
 			->onlyOnIndex();
 		yield Field::new('slug')
-			->hideOnIndex();
+			->hideOnIndex()
+			->setFormTypeOption(
+				'disabled',
+				$pageName !== Crud::PAGE_NEW
+			);
 		yield Field::new('name');
 		yield AssociationField::new('topic');
 		yield TextareaField::new('question')
