@@ -19,6 +19,8 @@ class QuestionCrudController extends AbstractCrudController {
 	public function configureFields(string $pageName): iterable {
 		yield IdField::new('id')
 			->onlyOnIndex();
+		yield Field::new('slug')
+			->hideOnIndex();
 		yield Field::new('name');
 		yield AssociationField::new('topic');
 		yield TextareaField::new('question')
