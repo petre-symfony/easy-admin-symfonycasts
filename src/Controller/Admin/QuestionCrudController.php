@@ -10,7 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class QuestionCrudController extends AbstractCrudController {
 	public static function getEntityFqcn(): string {
@@ -30,7 +30,7 @@ class QuestionCrudController extends AbstractCrudController {
 		yield Field::new('name')
 			->setSortable(false);
 		yield AssociationField::new('topic');
-		yield TextEditorField::new('question')
+		yield TextareaField::new('question')
 			->hideOnIndex();
 		yield VotesField::new('votes', 'Total Votes')
 			->setTextAlign('right');
