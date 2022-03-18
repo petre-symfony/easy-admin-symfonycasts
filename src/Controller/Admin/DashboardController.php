@@ -73,6 +73,14 @@ class DashboardController extends AbstractDashboardController {
 		yield MenuItem::linkToUrl('Homepage', 'fas fa-home', $this->generateUrl('app_homepage'));
 	}
 
+	public function configureCrud(): Crud {
+		return parent::configureCrud()
+			->setDefaultSort([
+				'id' => 'DESC'
+			]);
+	}
+
+
 	public function configureActions(): Actions {
 		return parent::configureActions()
 			->add(Crud::PAGE_INDEX, Action::DETAIL);
