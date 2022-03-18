@@ -52,4 +52,14 @@ class QuestionCrudController extends AbstractCrudController {
 		yield Field::new('createdAt')
 			->hideOnForm();
 	}
+
+	public function configureCrud(Crud $crud): Crud {
+		return parent::configureCrud($crud)
+			->setDefaultSort([
+				'askedBy.enabled' => 'DESC',
+				'createdAt' => 'DESC'
+			]);
+	}
+
+
 }
