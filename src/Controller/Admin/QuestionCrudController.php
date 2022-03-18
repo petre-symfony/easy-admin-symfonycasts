@@ -27,7 +27,8 @@ class QuestionCrudController extends AbstractCrudController {
 				'disabled',
 				$pageName !== Crud::PAGE_NEW
 			);
-		yield Field::new('name');
+		yield Field::new('name')
+			->setSortable(false);
 		yield AssociationField::new('topic');
 		yield TextareaField::new('question')
 			->hideOnIndex();
