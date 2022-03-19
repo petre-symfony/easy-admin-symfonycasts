@@ -15,7 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-#[IsGranted('ROLE_SUPER_ADMIN')]
+#[IsGranted('ROLE_MODERATOR')]
 class QuestionCrudController extends AbstractCrudController {
 	public static function getEntityFqcn(): string {
 		return Question::class;
@@ -78,7 +78,7 @@ class QuestionCrudController extends AbstractCrudController {
 
 	public function configureActions(Actions $actions): Actions {
 		return parent::configureActions($actions)
-			->setPermission(Action::INDEX, 'ROLE_MODERATOR')
+			->setPermission(Action::INDEX, 'ROLE_SUPER_ADMIN')
 			->setPermission(Action::DETAIL, 'ROLE_MODERATOR')
 			->setPermission(Action::EDIT, 'ROLE_MODERATOR')
 			->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
