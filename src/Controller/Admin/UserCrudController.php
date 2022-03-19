@@ -80,7 +80,7 @@ class UserCrudController extends AbstractCrudController {
 
 	public function configureFilters(Filters $filters): Filters {
 		return parent::configureFilters($filters)
-			->add(BooleanFilter::new('enabled'));
+			->add(BooleanFilter::new('enabled')->setFormTypeOption('expanded', false));
 	}
 
 
