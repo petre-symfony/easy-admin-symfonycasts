@@ -24,26 +24,23 @@ use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractDashboardController {
 	private QuestionRepository $questionRepository;
-	private ChartBuilderInterface $chartBuilder;
 
 	public function __construct(
-		QuestionRepository $questionRepository,
-		ChartBuilderInterface $chartBuilder
+		QuestionRepository $questionRepository
 	) {
 		$this->questionRepository = $questionRepository;
-		$this->chartBuilder = $chartBuilder;
 	}
 
 	#[IsGranted('ROLE_ADMIN')]
 	#[Route('/admin', name: 'admin')]
-	public function index(): Response {
+	public function index(ChartBuilderInterface $chartBuilder): Response {
 		$latestQuestions = $this->questionRepository->findLatest();
 		$topVoted = $this->questionRepository->findTopVoted();
 
 		return $this->render('admin/index.html.twig', [
 			'latestQuestions' => $latestQuestions,
 			'topVoted' => $topVoted,
-			'chart' => $this->createChart()
+			'chart' => $this->createChart($chartBuilder)
 		]);
 	}
 
@@ -95,8 +92,8 @@ class DashboardController extends AbstractDashboardController {
 			->addWebpackEncoreEntry('admin');
 	}
 
-	private function createChart(): Chart {
-		$chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+	private function createChart(ChartBuilderInterface $chartBuilder): Chart {
+		$chart = $chartBuilder->createChart(Chart::TYPE_LINE);
 		$chart->setData([
 			'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
 			'datasets' => [
