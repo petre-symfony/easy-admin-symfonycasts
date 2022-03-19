@@ -80,6 +80,7 @@ class QuestionCrudController extends AbstractCrudController {
 			->setPermission(Action::DETAIL, 'ROLE_MODERATOR')
 			->setPermission(Action::EDIT, 'ROLE_MODERATOR')
 			->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
-			->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN');
+			->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN')
+			->setPermission(Action::BATCH_DELETE, 'ROLE_SUPER_ADMIN');
 	}
 }
