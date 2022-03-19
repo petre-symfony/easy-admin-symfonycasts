@@ -27,8 +27,8 @@ class UserCrudController extends AbstractCrudController {
 		yield IdField::new('id')
 			->onlyOnIndex();
 		yield AvatarField::new('avatar')
-			->formatValue(static function ($value, User $user) {
-				return $user->getAvatarUrl();
+			->formatValue(static function ($value, ?User $user) {
+				return $user?->getAvatarUrl();
 			})
 			->hideOnForm();
 		yield ImageField::new('avatar')

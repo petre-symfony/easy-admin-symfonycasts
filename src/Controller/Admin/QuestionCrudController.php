@@ -51,8 +51,8 @@ class QuestionCrudController extends AbstractCrudController {
 			->setPermission('ROLE_SUPER_ADMIN');
 		yield AssociationField::new('askedBy')
 			->autocomplete()
-			->formatValue(static function($value, Question $question) {
-				if (!$user = $question->getAskedBy()) {
+			->formatValue(static function($value, ?Question $question) {
+				if (!$user = $question?->getAskedBy()) {
 					return null;
 				}
 
