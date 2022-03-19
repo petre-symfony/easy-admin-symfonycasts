@@ -40,7 +40,8 @@ class QuestionCrudController extends AbstractCrudController {
 					'data-snarkdown-target' => 'input',
 					'data-action' => 'snarkdown#render'
 				]
-			]);
+			])
+			->setHelp('Preview:');
 		yield VotesField::new('votes', 'Total Votes')
 			->setTextAlign('right');
 		yield AssociationField::new('askedBy')
