@@ -3,4 +3,6 @@
 {# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
 {# this template is used to display Doctrine entity primary keys #}
 
-<span class="fa fa-key"></span> {{ field.formattedValue }}
+<span class="fa fa-key"></span>
+
+{{ include('@EasyAdmin/crud/field/id.html.twig') }}
