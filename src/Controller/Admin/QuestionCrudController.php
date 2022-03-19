@@ -76,6 +76,10 @@ class QuestionCrudController extends AbstractCrudController {
 
 	public function configureActions(Actions $actions): Actions {
 		return parent::configureActions($actions)
-			->setPermission(Action::INDEX, 'ROLE_MODERATOR');
+			->setPermission(Action::INDEX, 'ROLE_MODERATOR')
+			->setPermission(Action::DETAIL, 'ROLE_MODERATOR')
+			->setPermission(Action::EDIT, 'ROLE_MODERATOR')
+			->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
+			->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN');
 	}
 }
