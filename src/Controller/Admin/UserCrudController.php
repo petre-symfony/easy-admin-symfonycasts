@@ -21,6 +21,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 
 class UserCrudController extends AbstractCrudController {
 	public static function getEntityFqcn(): string {
@@ -79,7 +80,7 @@ class UserCrudController extends AbstractCrudController {
 
 	public function configureFilters(Filters $filters): Filters {
 		return parent::configureFilters($filters)
-			->add('enabled');
+			->add(BooleanFilter::new('enabled'));
 	}
 
 
