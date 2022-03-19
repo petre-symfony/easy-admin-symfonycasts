@@ -33,7 +33,9 @@ class DashboardController extends AbstractDashboardController {
 
 	#[IsGranted('ROLE_ADMIN')]
 	#[Route('/admin', name: 'admin')]
-	public function index(ChartBuilderInterface $chartBuilder): Response {
+	public function index(ChartBuilderInterface $chartBuilder = null): Response {
+		assert(null !== $chartBuilder);
+		
 		$latestQuestions = $this->questionRepository->findLatest();
 		$topVoted = $this->questionRepository->findTopVoted();
 
