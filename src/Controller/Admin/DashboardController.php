@@ -19,12 +19,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractDashboardController {
 	private QuestionRepository $questionRepository;
+	private ChartBuilderInterface $chartBuilder;
 
-	public function __construct(QuestionRepository $questionRepository) {
+	public function __construct(
+		QuestionRepository $questionRepository,
+		ChartBuilderInterface $chartBuilder
+	) {
 		$this->questionRepository = $questionRepository;
+		$this->chartBuilder = $chartBuilder;
 	}
 
 	#[IsGranted('ROLE_ADMIN')]
@@ -35,7 +42,8 @@ class DashboardController extends AbstractDashboardController {
 
 		return $this->render('admin/index.html.twig', [
 			'latestQuestions' => $latestQuestions,
-			'topVoted' => $topVoted
+			'topVoted' => $topVoted,
+			'chart' => $this->createChart()
 		]);
 	}
 
@@ -87,4 +95,27 @@ class DashboardController extends AbstractDashboardController {
 			->addWebpackEncoreEntry('admin');
 	}
 
+	private function createChart(): Chart {
+		$chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+		$chart->setData([
+			'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+			'datasets' => [
+				[
+					'label' => 'My First dataset',
+					'backgroundColor' => 'rgb(255, 99, 132)',
+					'borderColor' => 'rgb(255, 99, 132)',
+					'data' => [0, 10, 5, 2, 20, 30, 45],
+				],
+			],
+		]);
+		$chart->setOptions([
+			'scales' => [
+				'y' => [
+					'suggestedMin' => 0,
+					'suggestedMax' => 100,
+				],
+			],
+		]);
+		return $chart;
+	}
 }
