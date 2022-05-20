@@ -69,12 +69,15 @@ class DashboardController extends AbstractDashboardController {
 
 	public function configureMenuItems(): iterable {
 		yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
-		yield MenuItem::linkToCrud('Questions', 'fa fa-question-circle', Question::class)
-			->setPermission('ROLE_MODERATOR')
-			->setController(QuestionCrudController::class);
-		yield MenuItem::linkToCrud('Pending Approval', 'far fa-question-circle', Question::class)
-			->setPermission('ROLE_MODERATOR')
-			->setController(QuestionPendingApprovalCrudController::class);
+		yield MenuItem::subMenu('Questions', 'fa fa-question-circle')
+			->setSubItems([
+				MenuItem::linkToCrud('All', 'fa fa-list', Question::class)
+					->setController(QuestionCrudController::class)
+					->setPermission('ROLE_MODERATOR'),
+				MenuItem::linkToCrud('Pending Approval', 'fa fa-warning', Question::class)
+					->setPermission('ROLE_MODERATOR')
+					->setController(QuestionPendingApprovalCrudController::class),
+			]);
 		yield MenuItem::linkToCrud('Answers', 'fas fa-comment', Answer::class);
 		yield MenuItem::linkToCrud('Topics', 'fas fa-folder', Topic::class);
 		yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
