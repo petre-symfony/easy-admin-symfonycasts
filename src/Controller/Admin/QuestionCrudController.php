@@ -85,7 +85,10 @@ class QuestionCrudController extends AbstractCrudController {
 	public function configureActions(Actions $actions): Actions {
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
-				dd($action);
+				$action->displayIf(static function(Question $question){
+					return !$question->getIsApproved();
+				});
+				
 			})
 			->setPermission(Action::INDEX, 'ROLE_MODERATOR')
 			->setPermission(Action::DETAIL, 'ROLE_MODERATOR')
