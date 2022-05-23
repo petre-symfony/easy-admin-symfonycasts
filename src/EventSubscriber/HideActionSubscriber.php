@@ -26,6 +26,16 @@ class HideActionSubscriber implements EventSubscriberInterface {
 		if ($question instanceof Question && $question->getIsApproved()) {
 			$crudDto->getActionsConfig()->disableActions([Action::DELETE]);
 		}
+
+		// returns the array of actual actions that will be enabled
+	  // for the current page
+		$actions = $crudDto->getActionsConfig()->getActions();
+		if (!$deleteAction = $actions[Action::DELETE ] ?? null) {
+			return;
+		}
+		$deleteAction->setDisplayCallable(function(Question $question) {
+			return !$question->getIsApproved();
+		});
   }
 
   public static function getSubscribedEvents() {
