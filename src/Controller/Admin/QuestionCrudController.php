@@ -97,6 +97,7 @@ class QuestionCrudController extends AbstractCrudController {
 			->addCssClass('btn btn-success')
 			->setIcon('fa fa-check-circle')
 			->displayAsButton()
+			->setTemplatePath('admin/approve_action.html.twig')
 			->linkToCrudAction('approve');
 
 		return parent::configureActions($actions)
