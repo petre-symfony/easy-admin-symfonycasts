@@ -84,8 +84,10 @@ class QuestionCrudController extends AbstractCrudController {
 
 	public function configureActions(Actions $actions): Actions {
 		$viewAction = Action::new('view')
-			->linkToUrl(function () {
-				dd(func_get_args());
+			->linkToUrl(function (Question $question) {
+				return $this->generateUrl('app_question_show', [
+					'slug' => $question->getSlug()
+				]);
 			});
 
 		return parent::configureActions($actions)
