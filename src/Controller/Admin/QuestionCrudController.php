@@ -83,6 +83,8 @@ class QuestionCrudController extends AbstractCrudController {
 	}
 
 	public function configureActions(Actions $actions): Actions {
+		$viewAction = Action::new('view');
+
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
 				$action->displayIf(static function(Question $question){
@@ -98,7 +100,7 @@ class QuestionCrudController extends AbstractCrudController {
 			->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
 			->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN')
 			->setPermission(Action::BATCH_DELETE, 'ROLE_SUPER_ADMIN')
-			->add(Crud::PAGE_DETAIL, 'view');
+			->add(Crud::PAGE_DETAIL, $viewAction);
 	}
 
 	public function configureFilters(Filters $filters): Filters {
