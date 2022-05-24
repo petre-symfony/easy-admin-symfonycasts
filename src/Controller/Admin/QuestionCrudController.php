@@ -100,7 +100,10 @@ class QuestionCrudController extends AbstractCrudController {
 			->setIcon('fa fa-check-circle')
 			->displayAsButton()
 			->setTemplatePath('admin/approve_action.html.twig')
-			->linkToCrudAction('approve');
+			->linkToCrudAction('approve')
+			->displayIf(static function(Question $question): bool {
+				return !$question->getIsApproved();
+			});
 
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
