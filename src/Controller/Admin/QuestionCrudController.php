@@ -96,7 +96,8 @@ class QuestionCrudController extends AbstractCrudController {
 		$approveAction = Action::new('approve')
 			->addCssClass('btn btn-success')
 			->setIcon('fa fa-check-circle')
-			->displayAsButton();
+			->displayAsButton()
+			->linkToCrudAction('approve');
 
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
