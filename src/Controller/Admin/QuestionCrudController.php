@@ -83,7 +83,10 @@ class QuestionCrudController extends AbstractCrudController {
 	}
 
 	public function configureActions(Actions $actions): Actions {
-		$viewAction = Action::new('view');
+		$viewAction = Action::new('view')
+			->linkToUrl(function () {
+				dd(func_get_args());
+			});
 
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
