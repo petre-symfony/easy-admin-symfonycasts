@@ -22,13 +22,22 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 #[IsGranted('ROLE_MODERATOR')]
 class QuestionCrudController extends AbstractCrudController {
+	private AdminUrlGenerator $adminUrlGenerator;
+	private RequestStack $requestStack;
+
+	public function __construct(AdminUrlGenerator $adminUrlGenerator, RequestStack $requestStack){
+
+		$this->adminUrlGenerator = $adminUrlGenerator;
+		$this->requestStack = $requestStack;
+	}
+
 	public static function getEntityFqcn(): string {
 		return Question::class;
 	}
-
 
 	public function configureFields(string $pageName): iterable {
 		yield IdField::new('id')
@@ -98,6 +107,7 @@ class QuestionCrudController extends AbstractCrudController {
 				->setIcon('fa fa-eye')
 				->setLabel('View on site');
 		};
+
 		$approveAction = Action::new('approve')
 			->addCssClass('btn btn-success')
 			->setIcon('fa fa-check-circle')
@@ -109,7 +119,14 @@ class QuestionCrudController extends AbstractCrudController {
 			});
 
 		$exportAction = Action::new('export')
-			->linkToCrudAction('export')
+			->linkToUrl(function () {
+				$request = $this->requestStack->getCurrentRequest();
+
+				return $this->adminUrlGenerator
+					->setAll($request->query->all())
+					->setAction('export')
+					->generateUrl();
+			})
 			->addCssClass('btn btn-success')
 			->setIcon('fa fa-download')
 			->createAsGlobalAction();
