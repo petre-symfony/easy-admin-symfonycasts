@@ -108,7 +108,8 @@ class QuestionCrudController extends AbstractCrudController {
 		$exportAction = Action::new('export')
 			->linkToCrudAction('export')
 			->addCssClass('btn btn-success')
-			->setIcon('fa fa-download');
+			->setIcon('fa fa-download')
+			->createAsGlobalAction();
 
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
