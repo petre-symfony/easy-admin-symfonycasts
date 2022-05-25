@@ -105,6 +105,11 @@ class QuestionCrudController extends AbstractCrudController {
 				return !$question->getIsApproved();
 			});
 
+		$exportAction = Action::new('export')
+			->linkToCrudAction('export')
+			->addCssClass('btn btn-success')
+			->setIcon('fa fa-download');
+
 		return parent::configureActions($actions)
 			->update(Crud::PAGE_INDEX, Action::DELETE, function(Action $action){
 				$action->displayIf(static function(Question $question){
@@ -122,7 +127,8 @@ class QuestionCrudController extends AbstractCrudController {
 			->setPermission(Action::BATCH_DELETE, 'ROLE_SUPER_ADMIN')
 			->add(Crud::PAGE_DETAIL, $viewAction()->addCssClass('btn btn-success'))
 			->add(Crud::PAGE_INDEX, $viewAction())
-			->add(Crud::PAGE_DETAIL, $approveAction);
+			->add(Crud::PAGE_DETAIL, $approveAction)
+			->add(Crud::PAGE_INDEX, $exportAction);
 	}
 
 	public function configureFilters(Filters $filters): Filters {
