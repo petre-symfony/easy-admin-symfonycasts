@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Factory\FilterFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -66,6 +67,7 @@ class QuestionCrudController extends AbstractCrudController {
 		yield VotesField::new('votes', 'Total Votes')
 			->setTextAlign('right')
 			->setPermission('ROLE_SUPER_ADMIN');
+		yield FormField::addPanel('Details');
 		yield AssociationField::new('askedBy')
 			->autocomplete()
 			->formatValue(static function($value, ?Question $question) {
@@ -93,8 +95,7 @@ class QuestionCrudController extends AbstractCrudController {
 			->setDefaultSort([
 				'askedBy.enabled' => 'DESC',
 				'createdAt' => 'DESC'
-			])
-			->addFormTheme();
+			]);
 	}
 
 	public function configureActions(Actions $actions): Actions {
