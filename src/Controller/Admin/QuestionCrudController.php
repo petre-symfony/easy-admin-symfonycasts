@@ -44,14 +44,16 @@ class QuestionCrudController extends AbstractCrudController {
 		yield IdField::new('id')
 			->onlyOnIndex();
 		yield FormField::addTab('Basic Data');
+		yield Field::new('name')
+			->setSortable(false)
+			->setColumns(5);
 		yield Field::new('slug')
 			->hideOnIndex()
 			->setFormTypeOption(
 				'disabled',
 				$pageName !== Crud::PAGE_NEW
-			);
-		yield Field::new('name')
-			->setSortable(false);
+			)
+			->setColumns(5);
 		yield AssociationField::new('topic');
 		yield TextareaField::new('question')
 			->hideOnIndex()
@@ -69,7 +71,7 @@ class QuestionCrudController extends AbstractCrudController {
 			->setTextAlign('right')
 			->setPermission('ROLE_SUPER_ADMIN');
 		yield FormField::addTab('Details')
-			->setIcon('fa fa-info')
+			->setIcon('info')
 			->setHelp('Additional Details');
 		yield AssociationField::new('askedBy')
 			->autocomplete()
