@@ -93,7 +93,8 @@ class QuestionCrudController extends AbstractCrudController {
 			->setDefaultSort([
 				'askedBy.enabled' => 'DESC',
 				'createdAt' => 'DESC'
-			]);
+			])
+			->addFormTheme();
 	}
 
 	public function configureActions(Actions $actions): Actions {
